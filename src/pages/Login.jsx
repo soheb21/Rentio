@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
-const Register = () => {
+const Login = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSubmit = (e) => {
+    try {
+      e.preventDefault();
+      if (!email || !password) {
+        return toast.error("All filled are required!");
+      }
+      console.log({ email, password });
+      setEmail("");
+      setPassword("");
+      toast.success("Login Success");
+      navigate("/cars");
+    } catch (error) {
+      console.error("Login Error", { error });
+    }
+  };
   return (
     <section>
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -8,7 +28,7 @@ const Register = () => {
           <div className="h-full ">
             <h1 className="text-3xl font-semibold mb-6">Login</h1>
 
-            <form className="max-w-md mx-auto my-12">
+            <form onSubmit={handleSubmit} className="max-w-md mx-auto my-12">
               {/* EMAIL */}
               <div className="relative z-0 w-full mb-5 group">
                 <input
@@ -17,7 +37,8 @@ const Register = () => {
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 
                   border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-teal-600 peer"
                   placeholder=" "
-                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <label
                   htmlFor="floating_email"
@@ -38,7 +59,8 @@ const Register = () => {
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 
                   border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-teal-600 peer"
                   placeholder=" "
-                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <label
                   htmlFor="floating_password"
@@ -66,7 +88,7 @@ const Register = () => {
             <img
               src="https://images.unsplash.com/photo-1731690415686-e68f78e2b5bd?q=80&w=2670&auto=format&fit=crop"
               className="rounded w-full"
-              alt="register banner"
+              alt="Login banner"
             />
           </div>
         </div>
@@ -75,4 +97,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

@@ -1,6 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const [formState, setFormState] = useState({
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: "",
+    password: "",
+  });
+  const handleChange = (e) => {
+    const { value, name } = e.target;
+    setFormState({ ...formState, [name]: value });
+  };
+  const handleSubmit = (e) => {
+    const { firstName, lastName, phone, email, password } = formState;
+    try {
+      e.preventDefault();
+      if (!firstName || !lastName || !phone || !email || !password) {
+        return toast.error("All filleds are required!");
+      }
+      console.log("register", { formState });
+      setFormState({
+        firstName: "",
+        lastName: "",
+        phone: "",
+        email: "",
+        password: "",
+      });
+      toast.success("Registered Success");
+      navigate("/login");
+    } catch (error) {
+      console.error("Register Error", { error });
+    }
+  };
   return (
     <section>
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -8,9 +43,8 @@ const Register = () => {
           <div className="h-full ">
             <h1 className="text-3xl font-semibold mb-6">Register</h1>
 
-            <form className="max-w-md mx-auto my-12">
+            <form onSubmit={handleSubmit} className="max-w-md mx-auto my-12">
               <div className="grid md:grid-cols-2 md:gap-6">
-                
                 {/* FIRST NAME */}
                 <div className="relative z-0 w-full mb-5 group">
                   <input
@@ -20,6 +54,8 @@ const Register = () => {
                     border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-teal-600 peer"
                     placeholder=" "
                     required
+                    name="firstName"
+                    onChange={handleChange}
                   />
                   <label
                     htmlFor="floating_first_name"
@@ -41,6 +77,8 @@ const Register = () => {
                     border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-teal-600 peer"
                     placeholder=" "
                     required
+                    name="lastName"
+                    onChange={handleChange}
                   />
                   <label
                     htmlFor="floating_last_name"
@@ -57,13 +95,14 @@ const Register = () => {
               {/* PHONE */}
               <div className="relative z-0 w-full mb-6 group">
                 <input
-                  type="tel"
-                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                  type="number"
                   id="floating_phone"
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 
                   border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-teal-600 peer"
                   placeholder=" "
                   required
+                  name="phone"
+                  onChange={handleChange}
                 />
                 <label
                   htmlFor="floating_phone"
@@ -85,6 +124,8 @@ const Register = () => {
                   border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-teal-600 peer"
                   placeholder=" "
                   required
+                  name="email"
+                  onChange={handleChange}
                 />
                 <label
                   htmlFor="floating_email"
@@ -106,6 +147,8 @@ const Register = () => {
                   border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-teal-600 peer"
                   placeholder=" "
                   required
+                  name="password"
+                  onChange={handleChange}
                 />
                 <label
                   htmlFor="floating_password"

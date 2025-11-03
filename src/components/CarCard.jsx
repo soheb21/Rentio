@@ -1,32 +1,48 @@
 import React from "react";
 
-const CarCard = () => {
+const CarCard = ({ car }) => {
   return (
     <div>
       <a
         href="#"
         className="relative block rounded-tr-3xl border border-gray-100"
       >
-        <span className="absolute -top-px -right-px rounded-tr-3xl rounded-bl-3xl bg-rose-600 px-6 py-4 font-medium tracking-widest text-white uppercase">
-          Save 10%
+        {/* Discount Badge */}
+        <span className="absolute text-sm -top-px -right-px rounded-tr-2xl rounded-bl-2xl bg-rose-600 px-2 py-2 font-medium tracking-widest text-white uppercase">
+          Save {car.discount}%
         </span>
+
+        {/* Car Image */}
         <img
-          src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?q=80&w=2672&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt
-          className="h-80 w-full rounded-tr-3xl object-cover"
+          src={car.img}
+          alt={car.name}
+          className="h-full max-h-44  w-full object-contain rounded-tr-3xl "
         />
+
+        {/* Content */}
         <div className="p-4 text-center">
-          <strong className="text-xl font-medium text-gray-900">
-            {" "}
-            Aloe Vera{" "}
+          <strong className="text-xl font-medium text-gray-900 capitalize">
+            {car.name}
           </strong>
+
+          <ul className="flex gap-2 justify-center items-center my-3 text-lg font-medium">
+            <li>{car.category}</li>
+            <li>• {car.seats} Seats</li>
+            <li>• {car.fuel}</li>
+          </ul>
+
           <p className="mt-2 text-pretty text-gray-700">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet
-            officia rem vel voluptatum in eum vitae aliquid at sed dignissimos.
+            {car.about.substring(0, 80) + "..."}
           </p>
-          <span className="mt-4 block rounded-md border border-teal-900 bg-teal-900 px-5 py-3 text-sm font-medium tracking-widest text-white uppercase transition-colors hover:bg-white hover:text-teal-900">
-            Buy now
-          </span>
+
+          {/* Price section */}
+          <h2 className="mt-3 text-lg font-semibold">
+            ₹{car.discountedPrice}
+            <span className="text-xs">/- per day</span>
+            <span className="text-gray-500 ml-4 line-through">
+              ₹{car.price}
+            </span>
+          </h2>
         </div>
       </a>
     </div>

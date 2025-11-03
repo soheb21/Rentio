@@ -11,7 +11,7 @@ const Home = () => {
             <strong className="text-teal-600"> Rentio </strong>
           </h1>
 
-          <p className="mt-5 text-base text-pretty text-gray-700 sm:text-lg/relaxed">
+          <p className="mt-5   text-base text-pretty text-gray-700 sm:text-lg/relaxed">
             Rent premium and affordable cars in just a few clicks. Whether it’s
             a weekend trip or a business ride, Rentio gives you easy booking,
             transparent pricing, and the best car rental experience — fast,
